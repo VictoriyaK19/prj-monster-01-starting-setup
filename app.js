@@ -7,8 +7,32 @@ Vue.createApp({
         return {
             playerHealth: 100,
             monsterHealth: 100,
-            currentRound: 0
+            currentRound: 0,
+            winner: null
         };
+    },
+    watch: {
+        playerHealth(value) {
+            if (value <= 0 && this.monsterHealth <= 0) {
+                // draw
+                this.winner = 'draw';
+            } else if (value <= 0) {
+                // Player lost
+                this.winner = 'monster';
+
+            }
+        },
+        monsterHealth(value) {
+            if (value <= 0 && this.playerHealth <= 0) {
+                // draw
+                this.winner = 'draw';
+            } else 
+            if (value <= 0) {
+                // Monster lost
+                this.winner = 'player';
+
+            }
+        }
     },
     computed: {
         monsterBarStyles() {
